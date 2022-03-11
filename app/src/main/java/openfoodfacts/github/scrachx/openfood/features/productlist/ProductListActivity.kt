@@ -36,15 +36,13 @@ import openfoodfacts.github.scrachx.openfood.features.product.view.ProductViewAc
 import openfoodfacts.github.scrachx.openfood.features.shared.BaseActivity
 import openfoodfacts.github.scrachx.openfood.listeners.CommonBottomListenerInstaller.installBottomNavigation
 import openfoodfacts.github.scrachx.openfood.listeners.CommonBottomListenerInstaller.selectNavigationItem
-import openfoodfacts.github.scrachx.openfood.models.DaoSession
-import openfoodfacts.github.scrachx.openfood.models.HistoryProduct
-import openfoodfacts.github.scrachx.openfood.models.HistoryProductDao
-import openfoodfacts.github.scrachx.openfood.models.Product
+import openfoodfacts.github.scrachx.openfood.models.*
 import openfoodfacts.github.scrachx.openfood.models.entities.ListedProduct
 import openfoodfacts.github.scrachx.openfood.models.entities.ProductLists
 import openfoodfacts.github.scrachx.openfood.utils.*
 import openfoodfacts.github.scrachx.openfood.utils.SortType.*
 import java.io.File
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -103,13 +101,20 @@ class ProductListActivity : BaseActivity(), SwipeController.Actions {
             (bundle[KEY_PRODUCT_TO_ADD] as? Product)?.let { prodToAdd ->
                 val locale = localeManager.getLanguage()
                 if (prodToAdd.productName != null && prodToAdd.getImageSmallUrl(locale) != null) {
-                    val barcode = prodToAdd.code
+                    var superPoints = ""
+                    if (prodToAdd.nutriments[Nutriment.SATURATED_FAT] != null && prodToAdd.nutriments[Nutriment.SUGARS] != null && prodToAdd.nutriments[Nutriment.ENERGY_KCAL] != null && prodToAdd.nutriments[Nutriment.PROTEINS] != null) {
+                        superPoints =
+                            DecimalFormat("#.##").format(prodToAdd.nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 -
+                                    prodToAdd.nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 +
+                                    prodToAdd.nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 +
+                                    prodToAdd.nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275)
+                    }
                     val productName = prodToAdd.productName
                     val productDetails = prodToAdd.getProductBrandsQuantityDetails()
                     val imageUrl = prodToAdd.getImageSmallUrl(locale)
 
                     val product = ListedProduct().apply {
-                        this.barcode = barcode
+                        this.barcode = superPoints
                         this.listId = this@ProductListActivity.listID
                         this.listName = this@ProductListActivity.listName
                         this.productName = productName

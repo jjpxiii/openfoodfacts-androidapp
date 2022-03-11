@@ -12,7 +12,7 @@ import java.util.*
  * @author herau
  */
 enum class NutrimentLevel {
-    LOW, MODERATE, HIGH;
+    LOW, MODERATE, HIGH, SP;
 
     @JsonValue
     override fun toString() = name.lowercase(Locale.ROOT)
@@ -22,6 +22,7 @@ enum class NutrimentLevel {
         LOW -> R.string.txtNutritionLevelLow
         MODERATE -> R.string.txtNutritionLevelModerate
         HIGH -> R.string.txtNutritionLevelHigh
+        SP -> R.string.txtSP
     }
 
     @DrawableRes
@@ -29,6 +30,7 @@ enum class NutrimentLevel {
         MODERATE -> R.drawable.moderate
         LOW -> R.drawable.low
         HIGH -> R.drawable.high
+        SP -> R.drawable.barcode_grey_24dp
     }
 
     companion object {

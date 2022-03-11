@@ -95,6 +95,7 @@ import openfoodfacts.github.scrachx.openfood.repositories.WikidataRepository
 import openfoodfacts.github.scrachx.openfood.repositories.TaxonomiesRepository
 import openfoodfacts.github.scrachx.openfood.utils.*
 import java.io.File
+import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -405,6 +406,7 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
             var saturatedFat: NutrimentLevel? = null
             var sugars: NutrimentLevel? = null
             var salt: NutrimentLevel? = null
+            var superPoints = 0.0
             if (nutrientLevels != null) {
                 fat = nutrientLevels.fat
                 saturatedFat = nutrientLevels.saturatedFat
@@ -419,6 +421,10 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
                 nutritionScoreUri = Uri.parse(getString(R.string.nutriscore_uri))
                 customTabActivityHelper.mayLaunchUrl(nutritionScoreUri, null, null)
                 binding.cvNutritionLights.visibility = View.VISIBLE
+                if (nutriments[Nutriment.SATURATED_FAT] != null && nutriments[Nutriment.SUGARS] != null && nutriments[Nutriment.ENERGY_KCAL] != null && nutriments[Nutriment.PROTEINS] != null) {
+                    superPoints = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275
+                    levelItems += NutrientLevelItem("SP", DecimalFormat("#.##").format(superPoints), "SP", NutrimentLevel.SP.getImgRes())
+                }
                 val fatNutriment = nutriments[Nutriment.FAT]
                 if (fat != null && fatNutriment != null) {
                     levelItems += NutrientLevelItem(
@@ -468,8 +474,6 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
 
             refreshNovaIcon()
 
-            refreshCO2OrEcoscoreIcon()
-
             refreshScoresLayout()
         } else {
             binding.scoresLayout.visibility = View.GONE
@@ -486,7 +490,7 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
     private fun refreshScoresLayout() {
         binding.scoresLayout.visibility = if (binding.novaGroup.visibility != View.GONE
             || binding.imageGrade.visibility != View.GONE
-            || binding.ecoscoreIcon.visibility != View.GONE
+            || binding.textSuperPointsTxt.visibility != View.GONE
             || binding.addNutriscorePrompt.visibility != View.GONE
         ) View.VISIBLE else View.GONE
     }
@@ -509,15 +513,6 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
         binding.novaGroup.setImageResource(product.getNovaGroupResource())
         binding.novaGroup.setOnClickListener {
             val uri = Uri.parse(getString(R.string.url_nova_groups))
-            val customTabsIntent = CustomTabsHelper.getCustomTabsIntent(requireContext(), customTabActivityHelper.session)
-            CustomTabActivityHelper.openCustomTab(requireActivity(), customTabsIntent, uri, WebViewFallback())
-        }
-    }
-
-    private fun refreshCO2OrEcoscoreIcon() {
-        binding.ecoscoreIcon.setImageResource(product.getEcoscoreResource())
-        binding.ecoscoreIcon.setOnClickListener {
-            val uri = getString(R.string.ecoscore_url).toUri()
             val customTabsIntent = CustomTabsHelper.getCustomTabsIntent(requireContext(), customTabActivityHelper.session)
             CustomTabActivityHelper.openCustomTab(requireActivity(), customTabsIntent, uri, WebViewFallback())
         }

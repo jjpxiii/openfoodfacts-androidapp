@@ -357,11 +357,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    lint {
-        isAbortOnError = false
-        disable("MissingTranslation")
-    }
-
     packagingOptions {
         resources.excludes += listOf(
             "META-INF/DEPENDENCIES.txt",

@@ -342,18 +342,19 @@
                         tools:ignore="ContentDescription"
                         tools:src="@drawable/ic_nova_group_1" />
 
-                    <ImageView
-                        android:id="@+id/ecoscore_icon"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="2"
-                        android:adjustViewBounds="true"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/ic_ecoscore_a" />
+                    <TextView
+                        android:id="@+id/textSuperPointsTxt"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_normal"
+                        android:layout_marginTop="@dimen/spacing_tiny"
+                        android:layout_marginRight="@dimen/spacing_normal"
+                        android:padding="@dimen/spacing_small"
+                        android:textIsSelectable="true"
+                        android:textSize="@dimen/font_normal"
+                        android:textStyle="bold"
+                        tools:text="0"
+                        />
                 </LinearLayout>
 
                 <Button
@@ -430,16 +431,16 @@
                         android:textColor="@android:color/white"
                         tools:text="Does the product belong to this category?" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/spacing_small"
-                        android:paddingLeft="@dimen/spacing_small"
-                        android:paddingEnd="@dimen/spacing_tiny"
-                        android:paddingRight="@dimen/spacing_tiny"
-                        android:paddingBottom="@dimen/spacing_small"
-                        android:text="@string/product_question_prompt"
-                        android:textColor="@color/grey_300" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/spacing_small"
+                            android:paddingLeft="@dimen/spacing_small"
+                            android:paddingEnd="@dimen/spacing_tiny"
+                            android:paddingRight="@dimen/spacing_tiny"
+                            android:paddingBottom="@dimen/spacing_small"
+                            android:text="@string/product_question_prompt"
+                            android:textColor="@color/grey_300" />
                 </LinearLayout>
 
                 <ImageView

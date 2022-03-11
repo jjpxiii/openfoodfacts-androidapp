@@ -381,6 +381,7 @@ class NutritionProductFragment : BaseFragment(), CustomTabActivityHelper.Connect
             saturatedFat = nutrientLevels.saturatedFat
             sugars = nutrientLevels.sugars
             salt = nutrientLevels.salt
+           /* superPoints = (0.0305 * calories) - (0.098 * grams protein) + (0.12 * grams sugar) + (0.275 * grams sat fat) */
         }
 
         if (fat == null && salt == null && saturatedFat == null && sugars == null) {
