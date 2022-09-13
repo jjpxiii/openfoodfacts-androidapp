@@ -51,7 +51,7 @@ fun Measurement.convertTo(unit: MeasurementUnit): Measurement {
     // Then to desired unit
     return Measurement(
         when (unit) {
-            ENERGY_KJ, ENERGY_KCAL ->
+            ENERGY_KJ, ENERGY_KCAL, MAGIC_SCORE ->
                 throw IllegalArgumentException("Cannot convert from/to energy. Use convertEnergyTo instead.")
 
             UNIT_DV, UNIT_IU ->

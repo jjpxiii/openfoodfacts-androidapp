@@ -29,6 +29,7 @@ import openfoodfacts.github.scrachx.openfood.network.services.ProductsAPI
 import openfoodfacts.github.scrachx.openfood.utils.*
 import java.io.File
 import java.io.IOException
+import java.text.DecimalFormat
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -296,7 +297,8 @@ class ProductRepository @Inject constructor(
                     product.quantity,
                     product.nutritionGradeFr,
                     product.ecoscore,
-                    product.novaGroups
+                    product.novaGroups,
+                    historyProduct.magicScore
                 )
                 Log.d("syncOldHistory", hp.toString())
                 hp.lastSeen = historyProduct.lastSeen
@@ -367,6 +369,7 @@ class ProductRepository @Inject constructor(
             }
 
             val details = prod.productDetails
+            var magicScore = ""
             val hp = HistoryProduct(
                 prod.name,
                 details[Keys.ADD_BRANDS],
@@ -375,7 +378,8 @@ class ProductRepository @Inject constructor(
                 details[Keys.QUANTITY],
                 details[Keys.NUTRITION_GRADE_FR],
                 details[Keys.ECOSCORE],
-                details[Keys.NOVA_GROUPS]
+                details[Keys.NOVA_GROUPS],
+                magicScore
             )
             if (savedProduct != null) hp.id = savedProduct.id
             insertOrReplace(hp)
@@ -391,6 +395,9 @@ class ProductRepository @Inject constructor(
                     where(HistoryProductDao.Properties.Barcode.eq(product.code))
                 }
 
+
+                val magicScore = DecimalFormat("#.##").format(product.nutriments.additionalProperties["energy-kcal_100g"].toString().toDouble() * 0.0305 - product.nutriments.additionalProperties["proteins_100g"].toString().toDouble() * 0.098 + product.nutriments.additionalProperties["sugars_100g"].toString().toDouble() * 0.12 + product.nutriments.additionalProperties["saturated-fat_100g"].toString().toDouble() * 0.275)
+
                 val hp = HistoryProduct(
                     product.productName,
                     product.brands,
@@ -399,7 +406,8 @@ class ProductRepository @Inject constructor(
                     product.quantity,
                     product.nutritionGradeFr,
                     product.ecoscore,
-                    product.novaGroups
+                    product.novaGroups,
+                    magicScore
                 )
 
                 if (savedProduct != null) hp.id = savedProduct.id

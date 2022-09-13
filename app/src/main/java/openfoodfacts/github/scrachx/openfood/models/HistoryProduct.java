@@ -22,6 +22,7 @@ public class HistoryProduct {
     private String nutritionGrade;
     private String ecoscore;
     private String novaGroup;
+    private String magicScore;
 
     public HistoryProduct(String title,
                           String brands,
@@ -30,7 +31,8 @@ public class HistoryProduct {
                           String quantity,
                           String nutritionGrade,
                           String ecoscore,
-                          String novaGroup) {
+                          String novaGroup,
+                          String magicScore) {
         this.title = title;
         this.brands = brands;
         this.url = url;
@@ -39,12 +41,13 @@ public class HistoryProduct {
         this.nutritionGrade = nutritionGrade;
         this.ecoscore = ecoscore;
         this.novaGroup = novaGroup;
+        this.magicScore = magicScore;
         this.lastSeen = new Date();
     }
 
-    @Generated(hash = 1035374663)
+    @Generated(hash = 1995060278)
     public HistoryProduct(Long id, String title, String brands, String url, Date lastSeen, String barcode, String quantity,
-                          String nutritionGrade, String ecoscore, String novaGroup) {
+            String nutritionGrade, String ecoscore, String novaGroup, String magicScore) {
         this.id = id;
         this.title = title;
         this.brands = brands;
@@ -55,6 +58,7 @@ public class HistoryProduct {
         this.nutritionGrade = nutritionGrade;
         this.ecoscore = ecoscore;
         this.novaGroup = novaGroup;
+        this.magicScore = magicScore;
     }
 
     @Generated(hash = 1674709907)
@@ -99,6 +103,9 @@ public class HistoryProduct {
         if (ecoscore != null ? !ecoscore.equals(that.ecoscore) : that.ecoscore != null) {
             return false;
         }
+        if (magicScore != null ? !magicScore.equals(that.magicScore) : that.magicScore != null) {
+            return false;
+        }
         return novaGroup != null ? novaGroup.equals(that.novaGroup) : that.novaGroup == null;
     }
 
@@ -114,6 +121,7 @@ public class HistoryProduct {
         result = 31 * result + (nutritionGrade != null ? nutritionGrade.hashCode() : 0);
         result = 31 * result + (ecoscore != null ? ecoscore.hashCode() : 0);
         result = 31 * result + (novaGroup != null ? novaGroup.hashCode() : 0);
+        result = 31 * result + (magicScore != null ? magicScore.hashCode() : 0);
         return result;
     }
 
@@ -195,5 +203,21 @@ public class HistoryProduct {
 
     public void setNovaGroup(String novaGroup) {
         this.novaGroup = novaGroup;
+    }
+
+    public String getmagicScore() {
+        return this.magicScore;
+    }
+
+    public void setmagicScore(String magicScore) {
+        this.magicScore = magicScore;
+    }
+
+    public String getMagicScore() {
+        return this.magicScore;
+    }
+
+    public void setMagicScore(String magicScore) {
+        this.magicScore = magicScore;
     }
 }

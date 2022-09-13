@@ -418,12 +418,13 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
             binding.textNutrientTxt.setText(if (servingInL != true) R.string.txtNutrientLevel100g else R.string.txtNutrientLevel100ml)
             if (fat != null || salt != null || saturatedFat != null || sugars != null) {
                 // prefetch the URL
+
                 nutritionScoreUri = Uri.parse(getString(R.string.nutriscore_uri))
                 customTabActivityHelper.mayLaunchUrl(nutritionScoreUri, null, null)
                 binding.cvNutritionLights.visibility = View.VISIBLE
                 if (nutriments[Nutriment.SATURATED_FAT] != null && nutriments[Nutriment.SUGARS] != null && nutriments[Nutriment.ENERGY_KCAL] != null && nutriments[Nutriment.PROTEINS] != null) {
                     superPoints = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275
-                    levelItems += NutrientLevelItem("SP", DecimalFormat("#.##").format(superPoints), "SP", NutrimentLevel.SP.getImgRes())
+                    levelItems += NutrientLevelItem("MP", DecimalFormat("#.##").format(superPoints), "MP", NutrimentLevel.MP.getImgRes())
                 }
                 val fatNutriment = nutriments[Nutriment.FAT]
                 if (fat != null && fatNutriment != null) {
@@ -917,7 +918,9 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
             productLists.filter { list -> product.code !in list.products.map { it.barcode } }
         ) { list ->
             val product = ListedProduct().also {
-                it.barcode = product.code
+                it.barcode = if (product.nutriments[Nutriment.SATURATED_FAT] != null && product.nutriments[Nutriment.SUGARS] != null && product.nutriments[Nutriment.ENERGY_KCAL] != null && product.nutriments[Nutriment.PROTEINS] != null)
+                    DecimalFormat("#.##").format(product.nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - product.nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 + product.nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 + product.nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275)
+                else ""
                 it.listId = list.id
                 it.listName = list.listName
                 it.productName = product.productName

@@ -85,6 +85,7 @@ import openfoodfacts.github.scrachx.openfood.utils.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.IOException
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -239,7 +240,8 @@ class ContinuousScanActivity : BaseActivity(), IProductView {
             } else {
                 val product = productState.product!!
                 this@ContinuousScanActivity.product = product
-
+                val magicScore = DecimalFormat("#.##").format(product.nutriments.additionalProperties["energy-kcal_100g"].toString().toDouble() * 0.0305 - product.nutriments.additionalProperties["proteins_100g"].toString().toDouble() * 0.098 + product.nutriments.additionalProperties["sugars_100g"].toString().toDouble() * 0.12 + product.nutriments.additionalProperties["saturated-fat_100g"].toString().toDouble() * 0.275)
+                product.nutriments.additionalProperties.putIfAbsent("MP", magicScore)
                 // Add product to scan history
                 productDisp = lifecycleScope.launch { client.addToHistory(product) }
 
@@ -261,11 +263,11 @@ class ContinuousScanActivity : BaseActivity(), IProductView {
 
                 // Set product name, prefer offline
                 if (offlineSavedProduct != null && !offlineSavedProduct?.name.isNullOrEmpty()) {
-                    binding.quickViewName.text = offlineSavedProduct!!.name
+                    binding.quickViewName.text = offlineSavedProduct!!.name + " - " + magicScore + " MP"
                 } else if (product.productName == null || product.productName.isEmpty()) {
-                    binding.quickViewName.setText(R.string.productNameNull)
+                    binding.quickViewName.text = magicScore + " MP"
                 } else {
-                    binding.quickViewName.text = product.productName
+                    binding.quickViewName.text = product.productName + " - " + magicScore + " MP"
                 }
 
                 // Set product additives

@@ -67,6 +67,18 @@ class CalculateDetailsActivity : BaseActivity() {
 
         val portion = measure(weight, unit)
 
+        val magicScore = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275
+
+        if (magicScore != null) {
+            nutrimentListItems += NutrimentListItem(
+                "MP",
+                calculateMP(portion).value,
+               null,
+                MeasurementUnit.MAGIC_SCORE,
+                Modifier.EQUALS_TO,
+            )
+        }
+
         // Energy
         val energyKcal = nutriments[Nutriment.ENERGY_KCAL]
         if (energyKcal != null) {
@@ -166,6 +178,12 @@ class CalculateDetailsActivity : BaseActivity() {
                 nutriment.modifier
             )
         }
+    }
+
+    private fun calculateMP(portion: Measurement): Measurement {
+        val superPoints100g = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275
+        val portionGrams = portion.grams.value
+        return Measurement(superPoints100g.toFloat() / 100 * portionGrams, MeasurementUnit.MAGIC_SCORE)
     }
 
     private fun calculateCalories(portion: Measurement): Measurement {

@@ -77,6 +77,7 @@ import openfoodfacts.github.scrachx.openfood.repositories.ProductRepository
 import openfoodfacts.github.scrachx.openfood.utils.*
 import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -294,6 +295,23 @@ class NutritionProductFragment : BaseFragment(), CustomTabActivityHelper.Connect
         // Header hack
         nutrimentListItems += NutrimentListItem(inVolume == true)
 
+        var magicScore = 0.0
+        var magicScorePerServing: Double? = null
+        if (nutriments[Nutriment.SATURATED_FAT] != null && nutriments[Nutriment.SUGARS] != null && nutriments[Nutriment.ENERGY_KCAL] != null && nutriments[Nutriment.PROTEINS] != null) {
+            magicScore = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275
+            if (nutriments[Nutriment.ENERGY_KCAL]!!.perServingInG != null && nutriments[Nutriment.PROTEINS]!!.perServingInG != null && nutriments[Nutriment.SUGARS]!!.perServingInG !=null && nutriments[Nutriment.SATURATED_FAT]!!.perServingInG != null) {
+                magicScorePerServing =
+                    nutriments[Nutriment.ENERGY_KCAL]!!.perServingInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.perServingInG!!.value * 0.098 + nutriments[Nutriment.SUGARS]!!.perServingInG!!.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.perServingInG!!.value * 0.275
+            }
+            nutrimentListItems += NutrimentListItem(
+                "MP",
+                magicScore.toFloat(),
+                magicScorePerServing?.toFloat(),
+                MAGIC_SCORE,
+                DEFAULT_MODIFIER
+            )
+        }
+
         // Energy
         val energyKcal = nutriments[Nutriment.ENERGY_KCAL]
         if (energyKcal != null) {
@@ -375,13 +393,14 @@ class NutritionProductFragment : BaseFragment(), CustomTabActivityHelper.Connect
         var saturatedFat: NutrimentLevel? = null
         var sugars: NutrimentLevel? = null
         var salt: NutrimentLevel? = null
+        var magicScore = 0.0
 
         if (nutrientLevels != null) {
             fat = nutrientLevels.fat
             saturatedFat = nutrientLevels.saturatedFat
             sugars = nutrientLevels.sugars
             salt = nutrientLevels.salt
-           /* superPoints = (0.0305 * calories) - (0.098 * grams protein) + (0.12 * grams sugar) + (0.275 * grams sat fat) */
+           /* magicScore = (0.0305 * calories) - (0.098 * grams protein) + (0.12 * grams sugar) + (0.275 * grams sat fat) */
         }
 
         if (fat == null && salt == null && saturatedFat == null && sugars == null) {
@@ -395,6 +414,10 @@ class NutritionProductFragment : BaseFragment(), CustomTabActivityHelper.Connect
             nutritionScoreUri = getString(R.string.nutriscore_uri).toUri()
             customTabActivityHelper!!.mayLaunchUrl(nutritionScoreUri, null, null)
 
+            if (nutriments[Nutriment.SATURATED_FAT] != null && nutriments[Nutriment.SUGARS] != null && nutriments[Nutriment.ENERGY_KCAL] != null && nutriments[Nutriment.PROTEINS] != null) {
+                magicScore = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG.value * 0.275
+                levelItemList += NutrientLevelItem("MP", DecimalFormat("#.##").format(magicScore), "MP", NutrimentLevel.MP.getImgRes())
+            }
             val fatNutriment = nutriments[Nutriment.FAT]
             if (fat != null && fatNutriment != null) {
                 val fatNutrimentLevel = fat.getLocalize(requireActivity())

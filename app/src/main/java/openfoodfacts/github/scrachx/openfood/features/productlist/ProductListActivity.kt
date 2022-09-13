@@ -101,9 +101,9 @@ class ProductListActivity : BaseActivity(), SwipeController.Actions {
             (bundle[KEY_PRODUCT_TO_ADD] as? Product)?.let { prodToAdd ->
                 val locale = localeManager.getLanguage()
                 if (prodToAdd.productName != null && prodToAdd.getImageSmallUrl(locale) != null) {
-                    var superPoints = ""
+                    var magicScore = ""
                     if (prodToAdd.nutriments[Nutriment.SATURATED_FAT] != null && prodToAdd.nutriments[Nutriment.SUGARS] != null && prodToAdd.nutriments[Nutriment.ENERGY_KCAL] != null && prodToAdd.nutriments[Nutriment.PROTEINS] != null) {
-                        superPoints =
+                        magicScore =
                             DecimalFormat("#.##").format(prodToAdd.nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 -
                                     prodToAdd.nutriments[Nutriment.PROTEINS]!!.per100gInG.value * 0.098 +
                                     prodToAdd.nutriments[Nutriment.SUGARS]!!.per100gInG.value * 0.12 +
@@ -114,7 +114,7 @@ class ProductListActivity : BaseActivity(), SwipeController.Actions {
                     val imageUrl = prodToAdd.getImageSmallUrl(locale)
 
                     val product = ListedProduct().apply {
-                        this.barcode = superPoints
+                        this.barcode = magicScore
                         this.listId = this@ProductListActivity.listID
                         this.listName = this@ProductListActivity.listName
                         this.productName = productName

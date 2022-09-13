@@ -85,6 +85,9 @@ open class SearchProduct : Serializable {
     @JsonProperty(ApiFields.Keys.ECOSCORE)
     val ecoscore: String? = null
 
+    @JsonProperty(ApiFields.Keys.NUTRIMENTS)
+    val nutrimentsForSearchProduct: String? = null
+
     @JsonAnySetter
     fun setAdditionalProperty(name: String, value: Any?) {
         additionalProperties[name] = value
