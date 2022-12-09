@@ -1,5 +1,79 @@
 # Changelog
 
+## 1.0.0 (2022-12-09)
+
+
+### Features
+
+* add In-App Review Functionality for playstore flavor ([#4860](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4860)) ([eb967ad](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/eb967ade84eb0c603cb540fc7e0e6232a473c218))
+* Add simple scan feature ([#4236](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4236)) ([dd59827](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/dd598272e6c32da7a816dabcaad2480ea1887591))
+* Automatically label issues ([#4524](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4524)) ([c46bc42](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/c46bc42030ec8f1cf184f762ef4fe9d97893c768))
+* disable sentry if user does not grant anonymous metric collection ([#4339](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4339)) ([0ab43cd](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/0ab43cd85392126891268b02a63b0a2ca67bede7))
+* export DB ([#4719](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4719)) ([694b56f](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/694b56f6f9a3d4f4c1a9d9f99fb87236a91856ce))
+* Monitor barcode scanning performance ([#4651](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4651)) ([80770c8](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/80770c89df69cc0d75e6c271fb10603796676ae2))
+* Scan tile (quick settings) ([#4603](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4603)) ([84d2ff6](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/84d2ff6e039212aed971ddd0ddb8fedda7c4df8b))
+* The Activity now notifies when the drawer status has changed ([#4560](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4560)) ([ef12188](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/ef12188100cd6478c1de391b88695619f43cc4de))
+* update to minSdk 21 ([#4769](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4769)) ([c508b43](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/c508b439dfebce2dc69a0854dd18d587c1f543eb))
+* use default locale for dateTime format in ContributorsFragment.kt ([dbdb089](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/dbdb0895fe9414790b31168f0e29688f22a9d00d))
+* use JDK 11 in detekt workflow ([7787aef](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/7787aef14a360aca7733c20ba84987383c6f1f60))
+* Use new SplashScreen API on Android 12 and newer (API level 31 and up) ([#4871](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4871)) ([1be5da9](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/1be5da982539d8c4702b807d315a76fa33bff919))
+* use system PowerManager API to query for low battery status ([#4874](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4874)) ([3ff8481](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/3ff84814153171601ff7a950c86b354c46524926))
+
+
+### Bug Fixes
+
+* "No nutrition facts" switch not working as intended ([#4583](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4583)) ([0c26ad1](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/0c26ad1209e4201302dee2006a1869f231613d66))
+* "Search for a food category" hint hardcoded ([#4539](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4539)) ([5050cf1](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/5050cf1d95929b90a3660b17bdbbc63f3a9a569f))
+* [#4546](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4546) Fixed sign up and password background buttons ([#4564](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4564)) ([d1adb55](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/d1adb55177331dede03f58eca34075de313229d7))
+* add check to MLKitCameraView.kt in FDroid so we're sure to not instantiating it ([8d97da6](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/8d97da669602c3d12729000bd40d1552e7504724))
+* Attempt to fix NPE: interface method 'java.lang.Object java.util.Map.get(java.lang.Object) ([#4496](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4496)) ([29f17a9](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/29f17a9b1db3df3fff364375dec6a1c09465fe6a))
+* Attempting to launch an unregistered ActivityResultLauncher ([51f7767](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/51f7767dfb7cee388f9b8b4a4e79e14c5f71c363))
+* Barcode scanner: No visual cues for icons on top of the screen ([#4573](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4573)) ([b82697f](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/b82697f4eb5c5dcbd186cfa826443bf1c2a4a2b8))
+* Barcode usage in ContinuousScanActivity ([220021c](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/220021c350b6ab5e4323cfb433553054fcaa5617))
+* change default name for lists ([#4616](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4616)) ([7b56644](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/7b56644fb2df46c13b2a398d5d08dbfc2d35b853))
+* changing the OS locale doesn't change the app locale ([#4323](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4323)) ([965b4ba](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/965b4bad4939da7d2d39534b6ca0a9fba9f4c0a3))
+* delete wrong translations & fix null error ([#4501](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4501)) ([1bf2517](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/1bf25172650112172b2d6c99a5fcb980901d85a1))
+* disable serving size field if fetched value is wrong ([43b933f](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/43b933f5193fa666daff46be05ec0b110a54f2a4))
+* environment picture issues ([#4655](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4655)) ([7bf62d8](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/7bf62d8413205ec0f3e5ed3e70cdf4c9adb24280))
+* error in value per 100g parsing ([f0e4a28](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/f0e4a28d9248f79cbdc2e19616224a6c4bde7ff3))
+* exhaustive use of when in ProductEditActivity.kt ([c7cafae](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/c7cafaec69f840ecdaad093374f122641cf86bce))
+* filter before mapping in ImageNameParser.kt ([9d43faa](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/9d43faa93a2f660a2a45d99d31745577701246ff))
+* Fix crashes by ensuring layout ID is set before inflating Camera View stub + raise AGP for Kotlin 1.7.0 compatibility ([#4794](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4794)) ([a39d366](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/a39d3668c3fe8972da361022ba04b929da38f109))
+* fixed isBarcodeValid method in ProductUtilsTest.kt ([5025f55](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/5025f55d72383d44be758a43f09c7eec1b2f0de1))
+* ImageKeyHelper.kt tests were wrong after last refactor ([fe8f54f](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/fe8f54f07d85847b0fbe7e56ad50501355fa0931))
+* initialize camera before use in SimpleScanActivity.kt ([6233fa3](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/6233fa3a6074f474f89571311f2e40b4eb3ec6f9))
+* lint issues ([#4519](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4519)) ([6ca3cde](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/6ca3cde74819c722708d1b1ae110417ab1b2a55d))
+* Login screen: the login button should not be disabled directly, as a dedicated method (updateLoginButtonState) already handles all the error/loading… cases ([#4531](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4531)) ([96d0fe0](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/96d0fe06e80ee2149adefdb19668ff2984596d52))
+* Made "image upload" message more descriptive on Product Addition ([#4852](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4852)) ([9bde0f8](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/9bde0f8b716bec2dabd6b1b518521f564d4cce9b))
+* ModifierTest.kt ([1785cff](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/1785cffadc12601f899adc7af002f03dad344d44))
+* NPE ([d54533f](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/d54533fb10b40e151e149b8964def5f98b189186))
+* NPE at ProductSearchActivity ([8bd9aee](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/8bd9aee102998cc0755fba5def0e68db89fa4891))
+* NPE crash on SearchByCodeFragment ([#4652](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4652)) ([53f79aa](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/53f79aa4cd20e17845dc2e6c02822eb740476359))
+* NPE for null binding ([#4629](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4629)) ([c4eaba8](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/c4eaba8adbdf1400068d63cb44cb82ff3036683e))
+* NPE in EditOverviewFragment ([#4298](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4298)) ([94df3cc](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/94df3ccb80ea8b42e24a065185ab13876d35c965))
+* NPE in ProductCompareAdapter ([#4631](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4631)) ([7ef7b94](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/7ef7b94eb290cdc31e07a54b02400e914217037e))
+* NPE in ProductEditActivity#getUpdatedFieldsMap ([0ff12f6](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/0ff12f6e68dc57dcf83c7c971c94ccb30d2f0281))
+* NPE in ProductListAdapter ([#4469](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4469)) ([3af2973](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/3af29736e8c1ad586a379b5126eadd611b3a0763))
+* replace NPE with ISE ([b8c0d5c](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/b8c0d5c5caeb15f3b22de80a9f0d18540e54322f))
+* Revent to Eaten products ([#4702](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4702)) ([cfca5f4](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/cfca5f4ea6d75e10fa2201cd0afcd9754c0d1e75))
+* robotoff should not make the app crash if unavailable ([#4464](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4464)) ([70d4e09](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/70d4e0984045c2ec7f2af28506255bd13ecb7bbc))
+* try to fix an exception with adding a product from other screens ([cfbb21e](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/cfbb21e7579e658d2c2dfbe4d9a2c28156ff258e))
+* type errors with new deps ([d8f8a30](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/d8f8a3065c34b89fc5e73470936b7ddafff4040f))
+* typo in variable usage in EditIngredientsFragment.kt ([389bf33](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/389bf33a2894672e82ee6e3358da17042dfcdaa1))
+* upload comment ([b394bef](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/b394beffe0832ff4e3c3224eb9545f3b46344deb))
+* use Date instead of Instant.fromEpoch for older android versions ([6744a25](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/6744a25ef8729ad9a7b8a921e8bc119723b2b705))
+* use runBlocking in retrieveAll_Success ([32dd869](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/32dd8693998975a05204739d3253e50bf5ec33d8))
+* use the .net server for testing ([054dd8e](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/054dd8e76f2b6d9e21021f9912dc3799edad3288))
+* Useless swipe to refresh with an empty product ([#4608](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4608)) ([4befba4](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/4befba444ea6ff3d3df4813e7aa50a73d6c29970))
+* When no further fragment is visible, the app should close itself ([#4322](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4322)) ([8ae0954](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/8ae095459e45d8dbebe3e243a5968b983fbf565a)), closes [#4320](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4320)
+* When nutriscore is not (yet) computed, hide the "Learn more" button ([#4657](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4657)) ([a17ddb9](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/a17ddb983e06b454968989be2088fd4a8a9ec3bf))
+* wrong number of products for lists + analytics events ([#4648](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4648)) ([c7438bb](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/c7438bbdb17dd5080c222566b6d896e0d28a65b7))
+
+
+### Reverts
+
+* try to make things work ([#4508](https://github.com/jjpxiii/openfoodfacts-androidapp/issues/4508)) ([f17cf09](https://github.com/jjpxiii/openfoodfacts-androidapp/commit/f17cf0974faaeebec6df761db1660a8a53dfb382))
+
 ## [3.8.0](https://github.com/openfoodfacts/openfoodfacts-androidapp/compare/v3.7.0...v3.8.0) (2022-02-09)
 
 
