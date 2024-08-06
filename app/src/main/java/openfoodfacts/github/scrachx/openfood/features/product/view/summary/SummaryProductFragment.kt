@@ -83,6 +83,7 @@ import openfoodfacts.github.scrachx.openfood.models.AnnotationResponse
 import openfoodfacts.github.scrachx.openfood.models.DaoSession
 import openfoodfacts.github.scrachx.openfood.models.NutrientLevelItem
 import openfoodfacts.github.scrachx.openfood.models.Nutriment
+import openfoodfacts.github.scrachx.openfood.models.NutrimentLevel
 import openfoodfacts.github.scrachx.openfood.models.Product
 import openfoodfacts.github.scrachx.openfood.models.ProductImageField
 import openfoodfacts.github.scrachx.openfood.models.ProductState
@@ -109,6 +110,7 @@ import openfoodfacts.github.scrachx.openfood.utils.ProductFragmentUtils
 import openfoodfacts.github.scrachx.openfood.utils.ProductInfoState
 import openfoodfacts.github.scrachx.openfood.utils.SearchType
 import openfoodfacts.github.scrachx.openfood.utils.getEcoscoreResource
+import openfoodfacts.github.scrachx.openfood.utils.getImgRes
 import openfoodfacts.github.scrachx.openfood.utils.getNovaGroupResource
 import openfoodfacts.github.scrachx.openfood.utils.getNutriScoreResource
 import openfoodfacts.github.scrachx.openfood.utils.getProductBrandsQuantityDetails
@@ -121,6 +123,7 @@ import openfoodfacts.github.scrachx.openfood.utils.list
 import openfoodfacts.github.scrachx.openfood.utils.requireProductState
 import openfoodfacts.github.scrachx.openfood.utils.showBottomSheet
 import java.io.File
+import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -434,6 +437,7 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
             val saturatedFat = nutrientLevels?.saturatedFat
             val sugars = nutrientLevels?.sugars
             val salt = nutrientLevels?.salt
+            var magicScore = 0.0
 
             val levelItems = mutableListOf<NutrientLevelItem>()
             if (fat == null && salt == null && saturatedFat == null && sugars == null) {
@@ -444,6 +448,12 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
                 customTabActivityHelper.mayLaunchUrl(nutritionScoreUri, null, null)
 
                 val nutriments = product.nutriments
+
+                if (nutriments[Nutriment.SATURATED_FAT] != null && nutriments[Nutriment.SUGARS] != null && nutriments[Nutriment.ENERGY_KCAL] != null && nutriments[Nutriment.PROTEINS] != null) {
+                    magicScore = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG!!.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG!!.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG!!.value * 0.275
+                    levelItems += NutrientLevelItem("MP", DecimalFormat("#.##").format(magicScore), "MP", NutrimentLevel.MP.getImgRes())
+                }
+
                 levelItems += listOfNotNull(
                     nutriments.buildLevelItem(requireContext(), Nutriment.FAT, fat),
                     nutriments.buildLevelItem(requireContext(), Nutriment.SATURATED_FAT, saturatedFat),
@@ -461,7 +471,6 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
 
             refreshNutriScore()
             refreshNovaIcon()
-            refreshCO2OrEcoscoreIcon()
             refreshScoresLayout()
         } else {
             binding.scoresLayout.visibility = View.GONE
@@ -478,7 +487,7 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
     private fun refreshScoresLayout() {
         binding.scoresLayout.visibility = if (binding.novaGroup.visibility != View.GONE
             || binding.imageGrade.visibility != View.GONE
-            || binding.ecoscoreIcon.visibility != View.GONE
+            || binding.textMagicScoreTxt.visibility != View.GONE
             || binding.addNutriscorePrompt.visibility != View.GONE
         ) View.VISIBLE else View.GONE
     }
@@ -507,18 +516,7 @@ class SummaryProductFragment : BaseFragment(), ISummaryProductPresenter.View {
         }
     }
 
-    private fun refreshCO2OrEcoscoreIcon() {
-        binding.ecoscoreIcon.setImageResource(product.getEcoscoreResource())
-        binding.ecoscoreIcon.setOnClickListener {
-            val uri = getString(R.string.ecoscore_url).toUri()
-            val customTabsIntent =
-                CustomTabsHelper.getCustomTabsIntent(requireContext(), customTabActivityHelper.session)
-            CustomTabActivityHelper.openCustomTab(requireActivity(), customTabsIntent, uri, WebViewFallback())
-        }
-    }
-
     private fun showListChips() {
-
         // remove the existing childviews on chip group if any
         binding.listChips.removeAllViews()
 

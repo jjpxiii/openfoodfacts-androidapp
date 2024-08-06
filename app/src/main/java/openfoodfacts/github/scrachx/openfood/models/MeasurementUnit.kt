@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Contract
 enum class MeasurementUnit(val sym: String) {
     ENERGY_KJ("kj"),
     ENERGY_KCAL("kcal"),
+    MAGIC_SCORE("MS"),
     UNIT_KILOGRAM("kg"),
     UNIT_GRAM("g"),
     UNIT_MILLIGRAM("mg"),

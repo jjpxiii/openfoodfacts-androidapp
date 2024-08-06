@@ -52,7 +52,8 @@ class HistoryRepository @Inject constructor(
                         product.quantity,
                         product.nutritionGradeFr,
                         product.ecoscore,
-                        product.novaGroups
+                        product.novaGroups,
+                        historyProduct.magicScore
                     )
                     Log.d("syncOldHistory", hp.toString())
                     hp.lastSeen = historyProduct.lastSeen

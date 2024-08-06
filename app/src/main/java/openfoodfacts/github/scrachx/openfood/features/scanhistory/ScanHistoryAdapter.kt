@@ -71,7 +71,7 @@ class ScanHistoryAdapter(
 
             fun bind(product: HistoryProduct, onClicked: (HistoryProduct) -> Unit) {
                 binding.productName.text = product.title
-                binding.barcode.text = product.barcode
+                binding.barcode.text = product.magicScore
                 binding.productDetails.text = getProductBrandsQuantityDetails(product)
 
                 // Load Image if isBatteryLoad is false

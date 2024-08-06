@@ -9,10 +9,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import openfoodfacts.github.scrachx.openfood.models.DaoSession
 import openfoodfacts.github.scrachx.openfood.models.HistoryProductDao
+import openfoodfacts.github.scrachx.openfood.models.Nutriment
 import openfoodfacts.github.scrachx.openfood.models.Product
 import openfoodfacts.github.scrachx.openfood.models.entities.ListedProduct
 import openfoodfacts.github.scrachx.openfood.models.entities.ProductLists
 import openfoodfacts.github.scrachx.openfood.utils.*
+import java.text.DecimalFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -124,11 +126,20 @@ class ProductListViewModel @Inject constructor(
 
         val locale = localeManager.getLanguage()
         if (product.productName != null && product.getImageSmallUrl(locale) != null) {
+            var magicScore = ""
+            if (product.nutriments[Nutriment.SATURATED_FAT] != null && product.nutriments[Nutriment.SUGARS] != null && product.nutriments[Nutriment.ENERGY_KCAL] != null && product.nutriments[Nutriment.PROTEINS] != null) {
+                magicScore =
+                    DecimalFormat("#.##").format(product.nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 -
+                            product.nutriments[Nutriment.PROTEINS]!!.per100gInG!!.value * 0.098 +
+                            product.nutriments[Nutriment.SUGARS]!!.per100gInG!!.value * 0.12 +
+                            product.nutriments[Nutriment.SATURATED_FAT]!!.per100gInG!!.value * 0.275)
+            }
 
             val listedProduct = ListedProduct().also {
                 it.listId = listId
                 it.listName = listName
                 it.barcode = product.code
+                it.magicScore = magicScore
                 it.productName = product.productName
                 it.productDetails = product.getProductBrandsQuantityDetails()
                 it.imageUrl = product.getImageSmallUrl(locale)

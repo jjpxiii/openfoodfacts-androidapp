@@ -27,10 +27,12 @@ public class ListedProduct {
     String productDetails;
     @Property(nameInDb = "imageUrl")
     String imageUrl;
+    @Property(nameInDb = "magicScore")
+    String magicScore;
 
-    @Generated(hash = 932048190)
-    public ListedProduct(Long id, String barcode, Long listId, String listName,
-                         String productName, String productDetails, String imageUrl) {
+    @Generated(hash = 1672847273)
+    public ListedProduct(Long id, String barcode, Long listId, String listName, String productName,
+            String productDetails, String imageUrl, String magicScore) {
         this.id = id;
         this.barcode = barcode;
         this.listId = listId;
@@ -38,6 +40,7 @@ public class ListedProduct {
         this.productName = productName;
         this.productDetails = productDetails;
         this.imageUrl = imageUrl;
+        this.magicScore = magicScore;
     }
 
     @Generated(hash = 85111474)
@@ -50,6 +53,14 @@ public class ListedProduct {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public String getMagicScore() {
+        return this.magicScore;
+    }
+
+    public void setMagicScore(String magicScore) {
+        this.magicScore = magicScore;
     }
 
     public Long getListId() {

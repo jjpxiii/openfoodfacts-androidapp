@@ -17,6 +17,7 @@ fun NutrimentLevel.getImgRes(): Int = when (this) {
     NutrimentLevel.MODERATE -> R.drawable.moderate
     NutrimentLevel.LOW -> R.drawable.low
     NutrimentLevel.HIGH -> R.drawable.high
+    NutrimentLevel.MP -> R.drawable.barcode_grey_24dp
 }
 
 @StringRes
@@ -24,4 +25,5 @@ fun NutrimentLevel.getDescRes(): Int = when (this) {
     NutrimentLevel.LOW -> R.string.txtNutritionLevelLow
     NutrimentLevel.MODERATE -> R.string.txtNutritionLevelModerate
     NutrimentLevel.HIGH -> R.string.txtNutritionLevelHigh
+    NutrimentLevel.MP -> R.string.txtMP
 }

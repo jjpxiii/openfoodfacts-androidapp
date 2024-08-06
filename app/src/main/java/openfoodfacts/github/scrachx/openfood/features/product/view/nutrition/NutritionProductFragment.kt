@@ -76,6 +76,8 @@ import openfoodfacts.github.scrachx.openfood.models.FAT_MAP
 import openfoodfacts.github.scrachx.openfood.models.MINERALS_MAP
 import openfoodfacts.github.scrachx.openfood.models.MeasurementUnit.ENERGY_KCAL
 import openfoodfacts.github.scrachx.openfood.models.MeasurementUnit.ENERGY_KJ
+import openfoodfacts.github.scrachx.openfood.models.MeasurementUnit.MAGIC_SCORE
+import openfoodfacts.github.scrachx.openfood.models.Modifier
 import openfoodfacts.github.scrachx.openfood.models.NutrientLevelItem
 import openfoodfacts.github.scrachx.openfood.models.Nutriment
 import openfoodfacts.github.scrachx.openfood.models.NutrimentListItem
@@ -323,6 +325,22 @@ class NutritionProductFragment : BaseFragment(), CustomTabActivityHelper.Connect
 
         // Header hack
         nutrimentListItems += NutrimentListItem(inVolume == true)
+        var magicScore = 0.0
+        var magicScorePerServing: Double? = null
+        if (nutriments[Nutriment.SATURATED_FAT] != null && nutriments[Nutriment.SUGARS] != null && nutriments[Nutriment.ENERGY_KCAL] != null && nutriments[Nutriment.PROTEINS] != null) {
+            magicScore = nutriments[Nutriment.ENERGY_KCAL]!!.per100gInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.per100gInG!!.value * 0.098 + nutriments[Nutriment.SUGARS]!!.per100gInG!!.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.per100gInG!!.value * 0.275
+            if (nutriments[Nutriment.ENERGY_KCAL]!!.perServingInG != null && nutriments[Nutriment.PROTEINS]!!.perServingInG != null && nutriments[Nutriment.SUGARS]!!.perServingInG !=null && nutriments[Nutriment.SATURATED_FAT]!!.perServingInG != null) {
+                magicScorePerServing =
+                    nutriments[Nutriment.ENERGY_KCAL]!!.perServingInG!!.value * 0.0305 - nutriments[Nutriment.PROTEINS]!!.perServingInG!!.value * 0.098 + nutriments[Nutriment.SUGARS]!!.perServingInG!!.value * 0.12 + nutriments[Nutriment.SATURATED_FAT]!!.perServingInG!!.value * 0.275
+            }
+            nutrimentListItems += NutrimentListItem(
+                "MP",
+                magicScore.toFloat(),
+                magicScorePerServing?.toFloat(),
+                MAGIC_SCORE,
+                Modifier.EQUALS_TO
+            )
+        }
 
         // Energy
         val energyKcal = nutriments[Nutriment.ENERGY_KCAL]
@@ -406,6 +424,7 @@ class NutritionProductFragment : BaseFragment(), CustomTabActivityHelper.Connect
         val saturatedFat = nutrientLevels?.saturatedFat
         val sugars = nutrientLevels?.sugars
         val salt = nutrientLevels?.salt
+        var magicScore = 0.0
 
         if (fat == null && salt == null && saturatedFat == null && sugars == null) {
             levelItemList += NutrientLevelItem("", "", "", NO_ID)

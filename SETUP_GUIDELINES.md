@@ -14,7 +14,7 @@ After you clone the repository the default remote is `origin` and it refers to y
 3. Type ` git remote -v ` and you should see <br>
 ```
    origin  https://github.com/YOUR_USERNAME/openfoodfacts-androidapp.git (fetch)
-   origin  https://github.com/YOUR_USERNAME/openfoodfacts-androidapp.git (push) 
+   origin  https://github.com/YOUR_USERNAME/openfoodfacts-androidapp.git (push)     
    upstream        https://github.com/openfoodfacts/openfoodfacts-androidapp.git (fetch)
    upstream        https://github.com/openfoodfacts/openfoodfacts-androidapp.git (push)
 ```

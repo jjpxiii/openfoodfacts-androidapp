@@ -52,6 +52,7 @@ import openfoodfacts.github.scrachx.openfood.utils.getCsvFolderName
 import openfoodfacts.github.scrachx.openfood.utils.isHardwareCameraInstalled
 import openfoodfacts.github.scrachx.openfood.utils.writeListToFile
 import java.io.File
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject

@@ -8,7 +8,7 @@ import java.util.*
  * @author herau
  */
 enum class NutrimentLevel {
-    LOW, MODERATE, HIGH;
+    LOW, MODERATE, HIGH, MP;
 
     @JsonValue
     override fun toString() = name.lowercase(Locale.ROOT)
